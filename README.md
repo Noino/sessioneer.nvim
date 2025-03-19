@@ -49,6 +49,8 @@ Once installed, Sessioneer works automatically:
     Auto Restore:
     When you open Neovim in a directory with a previously saved session, it restores the session seamlessly.
 
+Example of how i utilize this can be gleaned from [my configs](https://github.com/Noino/hyprlander) (which i use both on KDE and Hyprland)
+
 ## Commands
 
 maybe later?
@@ -73,8 +75,8 @@ The setup function accepts a table of options to customize Sessioneer’s behavi
 
 Contributions are welcome! If you have suggestions, bug fixes, or improvements:
 
-    Please open an issue or submit a pull request on GitHub.
-    Ensure your code follows the existing style guidelines.
+Please open an issue or submit a pull request on GitHub.
+Ensure your code follows the existing style guidelines.
 
 I'll get to it when i get to it, maybe
 
@@ -87,4 +89,4 @@ released under MIT (It's license inline)
 
 ## Acknowledgments
 
-    Thanks to the Neovim community for inspiring plugin ideas and best practices.
+Thanks to the Neovim community for inspiring plugin ideas and best practices.
