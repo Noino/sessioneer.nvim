@@ -59,51 +59,54 @@ function M.autoload()
     L.debug("autoloading " .. seshnode)
     if seshnode ~= "" and config.auto_restore then
         L.debug("still autoloading")
-        if not M.load() then
-            L.warn("Load failed!")
-        end
-        M.start()
+
+        vim.defer_fn(function()
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                if vim.bo[buf].filetype == "lazy" then
+                    vim.defer_fn(M.autoload, 50);
+                    return
+                end
+            end
+            if not M.load() then
+                L.warn("Load failed!")
+            end
+            M.start()
+        end, 10)
     end
 end
 
-function M.load(opts)
-    opts = opts or {}
-
+function M.load()
     if seshname == "" or vim.fn.filereadable(seshname) == 0 then
         L.debug("couldnt load " .. seshname)
         return false
     end
 
-    if seshname and vim.fn.filereadable(seshname) ~= 0 then
-        L.debug("Loading session: " .. seshname)
-        vim.g.sessioneer_session = seshname
-        M.fire("LoadPre")
-        local initbuf = vim.api.nvim_list_bufs()
+    local initbuf = vim.api.nvim_list_bufs()
 
-        vim.cmd("silent! source " .. vim.fn.fnameescape(seshname))
+    L.debug("Loading session: " .. seshname)
+    vim.g.sessioneer_session = seshname
+    M.fire("LoadPre")
+    vim.cmd("silent! source " .. vim.fn.fnameescape(seshname))
 
-        vim.defer_fn(function()
-            for _, buf in ipairs(initbuf) do
-                if vim.api.nvim_buf_is_valid(buf) then
-                    L.debug("Closing buffer " .. buf .. " as its not part of this session")
-                    vim.api.nvim_buf_delete(buf, {})
-                end
+    vim.defer_fn(function()
+        local bufname = vim.api.nvim_buf_get_name(0)
+        if bufname ~= "" and vim.fn.filereadable(bufname) ~= 0 then
+            vim.cmd("edit")
+        else
+            L.debug("Skipping edit: No valid file in first buffer")
+        end
+
+        for _, buf in ipairs(initbuf) do
+            if vim.api.nvim_buf_is_valid(buf) then -- and vim.bo[buf].filetype ~= "NvimTree" then
+                L.debug("Closing buffer " .. buf .. " as it's not part of this session")
+                vim.api.nvim_buf_delete(buf, { force = true })
             end
+        end
+    end, 10)
 
-            local bufname = vim.api.nvim_buf_get_name(0)
-            if bufname ~= "" and vim.fn.filereadable(bufname) ~= 0 then
-                vim.cmd("edit")
-            else
-                L.debug("Skipping edit: No valid file in the first buffer")
-            end
-        end, 10)
-
-        M.fire("LoadPost")
-        return true
-    else
-        L.debug("Couldnt load session")
-        return false
-    end
+    M.fire("LoadPost")
+    return true
 end
 
 function M.start()

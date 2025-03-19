@@ -2,10 +2,10 @@
 
 Sessioneer is a Neovim plugin that leverages Neovim’s built-in :mksession to automatically save and restore your session buffers and layouts when opening Neovim in a directory. It works quietly in the background so you can focus on your work without worrying about session management.
 
-##Features
+## Features
 
  -   Automatic Session Management:
-    Sessions are saved when you exit Neovim and restored automatically when you open a directory, ensuring a smooth workflow.
+    Sessions are saved when you enter or leave buffers, or exit Neovim and restored automatically when you open a directory, ensuring a smooth workflow.
 
  -   Directory-Based Sessions:
     Each session is associated with a directory. This makes it easy to maintain context-specific environments for your projects.
@@ -17,12 +17,12 @@ Sessioneer is a Neovim plugin that leverages Neovim’s built-in :mksession to a
     With minimal dependencies and efficient code, Sessioneer keeps your startup times low.
 
  -   Unconfigurable:
-    I mean you could if you wanted to, but its really built for me the way i want my sessions to work
+    I mean you could if you wanted to, but its really built for me the way i want my sessions to work because i couldn't get one of the existing ones to do it
 
 
 ## Installation
 
-If you are using a plugin manager like packer.nvim, you can add Sessioneer as follows:
+If you are using a plugin manager like lazy.nvim, you can add Sessioneer as follows:
 
 ### lazy.vim
 ```lua
