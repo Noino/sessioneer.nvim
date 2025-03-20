@@ -49,7 +49,8 @@ Once installed, Sessioneer works automatically:
     Auto Restore:
     When you open Neovim in a directory with a previously saved session, it restores the session seamlessly.
 
-Example of how i utilize this can be gleaned from [my configs](https://github.com/Noino/hyprlander) (which i use both on KDE and Hyprland)
+For me this comes in very handy, because at work i deal with quite a few contexts, so i have the AWESOME [tmuxifier](https://github.com/jimeh/tmuxifier) set up such that when i boot up my machine, i simply <super-x> for a shell, go `amux work` to attach the "work" layout, and it automatically sets me up with tmux sessions for each context, starts dockers etc etc. and opens up nvim in he relevant directory, which sessioneer restores for me right where i left off. 
+If you are interested in checking out this setup more closely (tmux layouts excluded), you can sneak a peek at [my configs](https://github.com/Noino/hyprlander) (which i use both on KDE and Hyprland)
 
 ## Commands
 
