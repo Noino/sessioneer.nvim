@@ -22,7 +22,7 @@ local seshnode = (function()
         end
     end
     L.debug("Session node: " .. sn)
-    return sn
+    return vim.fn.resolve(sn)
 end)()
 
 function M.branch()
